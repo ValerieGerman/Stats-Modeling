@@ -1,0 +1,53 @@
+---
+title: "Wheat Lab3"
+author: "ValerieGerman"
+date: "2026-09-08"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+**Hypothesis:** Theyield of wheat is impacted by either the content of phosphorus, potassium, magnesium, the pH level of the soil, the mean number of overwintering plants, or the mean number of ears.
+
+**Types of variables:** Numerical (continuous)
+
+**Response variable:** Yield (yield of wheat)
+
+**Covariates:** P (content of phosphorus), K (content of potassium), Mg (content of magnesium), PH (the pH level of the soil), Winter (the mean number of overwintering plants), and Ears (the mean number of ears).
+
+```{r wheat1}
+wheat.set<-"~/Downloads/Datasets/wheat.csv"
+wheat.table<-read.table(wheat.set, sep=",",header= T)
+summary(wheat.table)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r wheat2, echo=FALSE}
+ncol(wheat.table)
+plot(wheat.table[,1:7])
+
+
+wheat_corr<-cor(wheat.table[,1:7])
+wheat_corr
+
+library(corrplot)
+
+corrplot::corrplot(wheat_corr,method="color")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+**Outliers or noticeable associations?** There seems to be a small negative correlation between yield size with P (content of phosphorus), K (content of potassium), and PH (pH of soil). There also seems to be somewhat of a strong correlation between P and PH.
